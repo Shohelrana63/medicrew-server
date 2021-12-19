@@ -33,7 +33,14 @@ client.connect(err => {
       })
   })
 
-  
+
+// Get all Booked Appointments
+    app.get('/bookedAppointments', (req, res) => {
+        appointmentCollection.find({})
+            .toArray((err, documents) => {
+                res.send(documents);
+            })
+    })
 
 
 });
