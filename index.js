@@ -64,13 +64,21 @@ app.post('/addADoctor', (req, res) => {
         size: file.size,
         img: Buffer.from(encImg, 'base64')
     };
- console.log(id, category, name, education, designation, department, hospital, img, image);
+//  console.log(id, category, name, education, designation, department, hospital, img, image);
     doctorCollection
         .insertOne({ id, category, name, education, designation, department, hospital, img, image })
         .then((result) => {
             res.send(result.insertedCount > 0);
         });
 });
+   
+// Get all doctors Information
+    app.get('/doctors', (req, res) => {
+        doctorCollection.find({}).toArray((err, documents) => {
+            res.send(documents);
+        });
+    });
+
 
 });
 
