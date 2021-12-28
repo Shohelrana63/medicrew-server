@@ -24,7 +24,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 client.connect(err => {
   const appointmentCollection = client.db("medicrewbd").collection("appointments");
   const doctorCollection = client.db("medicrewbd").collection("doctors");
-
+  const reviewCollection = client.db("medicrewbd").collection("reviews");
 
   app.post('/addAppointment', (req, res) => {
       const appointment = req.body;
@@ -78,6 +78,23 @@ app.post('/addADoctor', (req, res) => {
             res.send(documents);
         });
     });
+
+// Added Review
+    app.post('/addReview', (req, res) => {
+        const reviewData = req.body;
+        console.log(reviewData)
+        reviewCollection.insertOne(reviewData).then((result) => {
+            res.send(result.insertedCount > 0);
+            console.log(result.insertedCount, 'Review Data Inserted');
+        });
+    });
+    
+    // Get all Reviews
+	app.get('/allReviews', (req, res) => {
+		reviewCollection.find({}).toArray((err, documents) => {
+			res.send(documents);
+		});
+	});
 
 
 });
