@@ -65,7 +65,6 @@ app.post('/addADoctor', (req, res) => {
         size: file.size,
         img: Buffer.from(encImg, 'base64')
     };
-//  console.log(id, category, name, education, designation, department, hospital, img, image);
     doctorCollection
         .insertOne({ id, category, name, education, designation, department, hospital, img, image })
         .then((result) => {
@@ -83,7 +82,6 @@ app.post('/addADoctor', (req, res) => {
 // Added Review
     app.post('/addReview', (req, res) => {
         const reviewData = req.body;
-        console.log(reviewData)
         reviewCollection.insertOne(reviewData).then((result) => {
             res.send(result.insertedCount > 0);
             console.log(result.insertedCount, 'Review Data Inserted');
@@ -109,11 +107,9 @@ app.post('/addADoctor', (req, res) => {
 			},
 			(err, result) => {
 				if (err) {
-					console.log(err);
 					res.status(500).send({ message: err });
 				} else {
 					res.send(result.modifiedCount > 0);
-					console.log(result.modifiedCount, 'Update Prescription');
 				}
 			}
 		);
@@ -130,11 +126,9 @@ app.post('/addADoctor', (req, res) => {
 			},
 			(err, result) => {
 				if (err) {
-					console.log(err);
 					res.status(500).send({ message: err });
 				} else {
 					res.send(result.modifiedCount > 0);
-					console.log(result.modifiedCount, 'Update Disease');
 				}
 			}
 		);
